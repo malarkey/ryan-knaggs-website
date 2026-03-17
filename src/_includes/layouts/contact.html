@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% include "partials/head.html" %}
+
+<body id="{{ site.siteID }}">
+
+<div class="layout" data-layout="nosferatu">
+
+<div>
+
+<div id="banner-logo">
+<a href="/">{% include "partials/logo-vertical.svg" %}
+<span data-visibility="hidden">{{ site.name }}</span></a>
+</div><!-- banner-logo -->
+
+<nav>
+<ul>
+{% for item in navigation.items %}
+<li><a href="{{ item.url }}" {{ helpers.getLinkActiveState(item.url, page.url) | safe }}>{{ item.text }}</a></li>
+{% endfor %}
+</ul>
+</nav>
+
+{% if lede %}
+{{ lede | markdown | safe }}
+{% endif %}
+
+{% if site.email %}<p data-align-h="center" data-size="r"><a href="mailto:{{ site.email }}">{{ site.email }}</a></p>{% endif %}
+{% if site.email %}<p class="alt-tel" data-align-h="center">{{ site.telephone }}</p>{% endif %}
+
+</div><!-- one -->
+
+<div data-theme="reversed">
+
+<h1 data-size="4xl">{{ title }}</h1>
+
+<form action="/thanks/" class="contact-form" data-netlify="true" method="POST" name="contact-form" netlify-honeypot="bot-field">
+<input type="hidden" name="form-name" value="contact-form">
+<p hidden>
+<label>Don&#8217;t fill this out: <input name="bot-field"></label>
+</p>
+
+<div data-layout="flex">
+
+<div>
+<label for="contact-name">Name</label>
+<input type="text" name="contact-name" id="contact-name">
+</div><!-- one -->
+
+<div>
+<label for="contact-company">Company <span>Optional</span></label>
+<input type="text" name="contact-company" id="contact-company">
+</div><!-- two -->
+
+</div><!-- flex -->
+
+<div data-layout="flex">
+
+<div>
+<label for="contact-email">Email</label>
+<input type="email" name="contact-email" id="contact-email">
+</div><!-- one -->
+
+<div>
+<label for="contact-tel">Phone</label>
+<input type="tel" name="contact-tel" id="contact-tel">
+</div><!-- two -->
+
+</div><!-- flex -->
+
+<div>
+<label for="contact-message">Message</label>
+<textarea name="contact-message" id="contact-message"></textarea>
+</div>
+
+<div data-align-h="right">
+<button class="btn">Send message</button>
+</div><!-- align -->
+
+</form>
+
+<hr>
+
+<h2>FAQs</h2>
+
+{% for category in collections.faqCategories %}
+<section>
+{% set categoryFaqs = collections.faqItems | filterFaqsByCategory(category) %}
+{% for item in categoryFaqs %}
+{% set faqId = "faq-" + item.fileSlug %}
+<details class="item-faq">
+<summary id="{{ faqId }}-question">{{ item.data.question }}</summary>
+<div role="region" aria-labelledby="{{ faqId }}-question">
+{{ item.data.answer | markdown | safe }}
+</div>
+</details>
+{% endfor %}
+</section>
+{% endfor %}
+
+</div><!-- two -->
+
+
+
+<div>
+
+<footer role="contentinfo">
+
+<ul class="alt-inline">
+{% for item in footer_navigation.items %}
+<li><a href="{{ item.url }}"{{ helpers.getLinkActiveState(item.url, page.url) | safe }}>{{ item.text }}</a></li>
+{% endfor %}
+</ul>
+
+{% include "partials/credits.html" %}
+{% include "partials/social.html" %}
+
+</footer>
+
+</div><!-- three -->
+
+</div><!-- layout -->
+
+
+</body>
+
+</html>

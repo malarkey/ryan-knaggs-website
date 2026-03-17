@@ -1,0 +1,21 @@
+<header role="banner">
+
+<div class="layout" data-layout="babadook" data-align-v="center">
+
+<div>
+<div id="banner-logo">
+<a href="/" aria-label="{{ site.name }}" title="Home">{% include "partials/logo-horizontal.svg" %}<span data-visibility="hidden">{{ site.name }}</span></a>
+</div><!-- banner-logo -->
+</div><!-- one -->
+
+<nav>
+<ul>
+{% for item in navigation.items %}
+<li><a href="{{ item.url }}" {{ helpers.getLinkActiveState(item.url, page.url) | safe }}>{{ item.text }}</a></li>
+{% endfor %}
+</ul>
+</nav>
+
+</div><!-- layout -->
+
+</header>

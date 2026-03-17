@@ -1,0 +1,131 @@
+{% extends "layouts/base.html" %}
+
+{% set archivePageSize = paginationSize or 6 %}
+
+{% block content %}
+
+<div class="layout" data-layout="yak-yak">
+<div>
+
+<h1>{{ title }}</h1>
+
+{% if lede %}
+{{ lede | markdown | safe }}
+{% endif %}
+
+{% if collections.portfolioServices.length %}
+<nav aria-label="Filter portfolio by service">
+<p><b>Filter by service</b></p>
+<div data-portfolio-filters>
+<button type="button" data-filter="all" aria-pressed="true">All</button>
+{% for service in collections.portfolioServices %}
+<button type="button" data-filter="{{ service | slug }}" aria-pressed="false">{{ service }}</button>
+{% endfor %}
+</div>
+</nav>
+{% endif %}
+
+<div data-portfolio-browser data-page-size="{{ archivePageSize }}">
+<p data-portfolio-results aria-live="polite"></p>
+{% include "partials/portfolio-list.html" %}
+<nav aria-label="Portfolio pagination">
+<button type="button" data-page-action="previous">Previous</button>
+<button type="button" data-page-action="next">Next</button>
+</nav>
+</div>
+
+</div>
+</div>
+
+<script>
+(() => {
+  const browser = document.querySelector("[data-portfolio-browser]");
+  if (!browser) {
+    return;
+  }
+
+  const cards = Array.from(browser.querySelectorAll("[data-portfolio-card]"));
+  if (!cards.length) {
+    return;
+  }
+
+  const filterButtons = Array.from(document.querySelectorAll("[data-filter]"));
+  const previousButton = browser.querySelector("[data-page-action='previous']");
+  const nextButton = browser.querySelector("[data-page-action='next']");
+  const results = browser.querySelector("[data-portfolio-results]");
+  const pageSize = Number(browser.getAttribute("data-page-size")) || 6;
+  let activeFilter = "all";
+  let currentPage = 1;
+
+  function getFilteredCards() {
+    if (activeFilter === "all") {
+      return cards;
+    }
+
+    return cards.filter((card) => card.getAttribute("data-service") === activeFilter);
+  }
+
+  function render() {
+    const filteredCards = getFilteredCards();
+    const totalPages = Math.max(1, Math.ceil(filteredCards.length / pageSize));
+    currentPage = Math.min(currentPage, totalPages);
+
+    const firstIndex = (currentPage - 1) * pageSize;
+    const lastIndex = firstIndex + pageSize;
+
+    cards.forEach((card) => {
+      card.hidden = true;
+    });
+
+    filteredCards.slice(firstIndex, lastIndex).forEach((card) => {
+      card.hidden = false;
+    });
+
+    filterButtons.forEach((button) => {
+      button.setAttribute("aria-pressed", String(button.getAttribute("data-filter") === activeFilter));
+    });
+
+    if (previousButton) {
+      previousButton.disabled = currentPage === 1;
+    }
+
+    if (nextButton) {
+      nextButton.disabled = currentPage === totalPages;
+    }
+
+    if (results) {
+      const count = filteredCards.length;
+      const label = activeFilter === "all"
+        ? "all services"
+        : activeFilter.replace(/-/g, " ");
+      results.textContent = `${count} item${count === 1 ? "" : "s"} in ${label}. Page ${currentPage} of ${totalPages}.`;
+    }
+  }
+
+  filterButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      activeFilter = button.getAttribute("data-filter") || "all";
+      currentPage = 1;
+      render();
+    });
+  });
+
+  if (previousButton) {
+    previousButton.addEventListener("click", () => {
+      currentPage -= 1;
+      render();
+    });
+  }
+
+  if (nextButton) {
+    nextButton.addEventListener("click", () => {
+      currentPage += 1;
+      render();
+    });
+  }
+
+  render();
+})();
+</script>
+
+{% endblock %}

@@ -1,0 +1,16 @@
+{% for item in postListItems %}
+<article class="item-post">
+<small class="item-meta">{{ item.data.postAuthor }} • {{ (item.data.date or item.date) | dateFilter }}</small>
+
+<h2><a href="{{ item.url }}">{{ item.data.title }}</a></h2>
+
+<p data-size="s">{{ item.data.postSummary }}</p>
+
+{% if item.data.postTags %}
+<small>Tagged with: {% for tag in item.data.postTags %}
+{{ tag }}{% if not loop.last %} • {% endif %}
+{% endfor %}
+</small>
+{% endif %}
+</article>
+{% endfor %}

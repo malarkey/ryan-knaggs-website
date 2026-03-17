@@ -1,0 +1,20 @@
+.item-faq {
+border-block-end: var(--border-width-r) solid var(--color-border);
+padding-block-end: var(--spacing-r);
+}
+
+.item-faq summary {
+cursor: pointer;
+font-family: var(--font-family-alt);
+font-size: var(--font-size-r);
+font-weight: var(--font-weight-m);
+margin-block-end: var(--spacing-s);
+}
+
+.item-faq[open] summary {
+margin-block-end: var(--spacing-r);
+}
+
+.item-faq:not(:last-child) {
+margin-block-end: var(--spacing-r);
+}

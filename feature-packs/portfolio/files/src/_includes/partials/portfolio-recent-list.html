@@ -1,0 +1,14 @@
+{% for item in collections.recentPortfolio %}
+{% if item.url != page.url %}
+<article class="item-portfolio">
+{% if item.data.thumbnail %}
+<img src="{{ item.data.thumbnail }}" alt="{{ item.data.title }}">
+{% endif %}
+<small>{{ item.data.year }}{% if item.data.service %} • {{ item.data.service }}{% endif %}</small>
+<h3><a href="{{ item.url }}">{{ item.data.title }}</a></h3>
+{% if item.data.summary %}
+<p>{{ item.data.summary }}</p>
+{% endif %}
+</article>
+{% endif %}
+{% endfor %}

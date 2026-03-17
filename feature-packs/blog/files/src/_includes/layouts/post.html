@@ -1,0 +1,39 @@
+{% extends "layouts/base.html" %}
+
+{% set recommendedPosts = helpers.getSiblingContent(collections.blog, page) %}
+
+{% block content %}
+
+<div class="layout" data-layout="yak-yak">
+
+<div>
+
+<small class="item-meta">{{ (date or page.date) | dateFilter }}</small>
+<h1>{{ title }}</h1>
+<p>{{ postSummary }}</p>
+
+{{ content | safe }}
+
+<small>{{ postAuthor }}
+{% if postTags %}
+ •
+{% for tag in postTags %}
+<span class="tag">{{ tag }}</span>{% if not loop.last %} • {% endif %}
+{% endfor %}
+{% endif %}
+</small>
+
+</div><!-- one -->
+</div><!-- layout -->
+
+<hr>
+
+{% if recommendedPosts %}
+{% set postListItems = recommendedPosts %}
+<h2>More posts</h2>
+<div data-content="posts">
+{% include "partials/post-list.html" %}
+</div>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,11 @@
+{
+  "featureFlag": "faqs",
+  "mainNavigationItems": [],
+  "footerNavigationItems": [
+    {
+      "text": "FAQs",
+      "url": "/faqs/"
+    }
+  ],
+  "cms": true
+}

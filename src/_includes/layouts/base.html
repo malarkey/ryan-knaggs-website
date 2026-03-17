@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% include "partials/head.html" %}
+
+<body id="{{ site.siteID }}">
+
+{% include "partials/header.html" %}
+
+{% if featureImage %}
+<figure>
+<img src="{{ featureImage }}" alt="{{ featureImageCaption }}" />
+{% if featureImageCaption %}
+<figcaption>{{ featureImageCaption }}</figcaption>
+{% endif %}
+</figure>
+{% endif %}
+
+{% block content %}
+
+<h1>{{ title }}</h1>
+{{ lede | safe }}
+{{ content | safe }}
+
+{% endblock %}
+
+{% include "partials/footer.html" %}
+</body>
+
+</html>

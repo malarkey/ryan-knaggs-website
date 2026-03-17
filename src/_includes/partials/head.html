@@ -1,0 +1,28 @@
+<head>
+
+{% include "partials/meta.html" %}
+
+<meta name="theme-color" content="#f8f9fa">
+<meta name="robots" content="index, follow, noodp" />
+
+{% if features.blog %}
+<link rel="alternate" type="application/rss+xml" href="{{ site.url }}/feed.xml" />
+{% endif %}
+{% if features.portfolio %}
+<link rel="alternate" type="application/rss+xml" href="{{ site.url }}/portfolio/feed.xml" />
+{% endif %}
+<link rel="stylesheet" href="{{ site.url }}/css/critical.css">
+{% if features.blog %}
+<link rel="stylesheet" href="{{ site.url }}/css/blog.css">
+{% endif %}
+{% if features.faqs %}
+<link rel="stylesheet" href="{{ site.url }}/css/faqs.css">
+{% endif %}
+{% if features.portfolio %}
+<link rel="stylesheet" href="{{ site.url }}/css/portfolio.css">
+{% endif %}
+{% if features.team %}
+<link rel="stylesheet" href="{{ site.url }}/css/team.css">
+{% endif %}
+
+</head>

@@ -1,0 +1,44 @@
+.item-portfolio {
+border-block-end: var(--border-width-l) solid var(--color-border);
+margin-block-end: var(--spacing-l);
+padding-block-end: var(--spacing-r);
+}
+
+[data-portfolio-filters] {
+display: flex;
+flex-wrap: wrap;
+gap: var(--spacing-s);
+margin-block-end: var(--spacing-r);
+}
+
+[data-portfolio-filters] button,
+[data-page-action] {
+background-color: transparent;
+border: var(--border-width-r) solid var(--color-border);
+border-radius: var(--border-radius-r);
+color: var(--color-text-default);
+cursor: pointer;
+font: inherit;
+padding: var(--spacing-s) var(--spacing-r);
+}
+
+[data-portfolio-filters] button[aria-pressed="true"] {
+background-color: var(--color-accent);
+border-color: var(--color-accent);
+color: var(--color-button-text);
+}
+
+[data-portfolio-results] {
+font-family: var(--font-family-alt);
+font-size: var(--font-size-xs);
+text-transform: uppercase;
+}
+
+[data-page-action] + [data-page-action] {
+margin-inline-start: var(--spacing-s);
+}
+
+[data-page-action][disabled] {
+cursor: not-allowed;
+opacity: 0.5;
+}

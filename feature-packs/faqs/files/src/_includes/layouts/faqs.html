@@ -1,0 +1,33 @@
+{% extends "layouts/base.html" %}
+
+{% block content %}
+
+<div class="layout" data-layout="yak-yak">
+<div>
+
+<h1>{{ title }}</h1>
+
+{% if lede %}
+{{ lede | markdown | safe }}
+{% endif %}
+
+{% for category in collections.faqCategories %}
+<section>
+<h2>{{ category }}</h2>
+{% set categoryFaqs = collections.faqItems | filterFaqsByCategory(category) %}
+{% for item in categoryFaqs %}
+{% set faqId = "faq-" + item.fileSlug %}
+<details class="item-faq">
+<summary id="{{ faqId }}-question">{{ item.data.question }}</summary>
+<div role="region" aria-labelledby="{{ faqId }}-question">
+{{ item.data.answer | markdown | safe }}
+</div>
+</details>
+{% endfor %}
+</section>
+{% endfor %}
+
+</div>
+</div>
+
+{% endblock %}

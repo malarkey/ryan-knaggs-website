@@ -1,0 +1,61 @@
+{% extends "layouts/base.html" %}
+
+{% set relatedPortfolio = helpers.getSiblingContent(collections.portfolioItems, page, 3, false) %}
+
+{% block content %}
+
+<div class="layout" data-layout="christine">
+
+<div>
+<p data-align-h="right"><a href="/portfolio" class="alt-uppercase">Back to all projects</a></p>
+
+<figure>
+{% if videoEmbed %}
+{{ videoEmbed | safe }}
+{% elif image %}
+<img src="{{ image }}" alt="{{ title }}">
+{% if audioFile and not videoEmbed %}
+<audio controls preload="none" src="{{ audioFile }}">
+<small>Your browser does not support the audio element.</small>
+</audio>
+{% endif %}
+{% endif %}
+</figure>
+
+<small class="alt-meta">{{ year }}{% if service %} • {{ service }}{% endif %}</small>
+
+<h1 data-size="3xl">{{ title }}</h1>
+
+{% if summary %}
+<p>{{ summary }}</p>
+{% endif %}
+
+{% if client or clientLogo %}
+<p>
+{% if clientLogo %}<img src="{{ clientLogo }}" alt="{{ client or title }}" style="max-width: 10rem;">{% endif %}
+{% if client %}<span>{{ client }}</span>{% endif %}
+</p>
+{% endif %}
+
+{{ content | safe }}
+
+{% if testimonial %}
+<blockquote>
+<p>{{ testimonial }}</p>
+</blockquote>
+{% endif %}
+
+</div><!-- one -->
+
+</div><!-- layout -->
+
+{% if relatedPortfolio.length %}
+<hr>
+
+<h2>Recent projects</h2>
+	<div class="layout" data-layout="carrie">
+{% include "partials/portfolio-recent-list.html" %}
+	</div><!-- layout -->
+{% endif %}
+
+{% endblock %}

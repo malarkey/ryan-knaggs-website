@@ -1,0 +1,22 @@
+pagesFiles:
+  - label: "FAQs"
+    name: "faqs"
+    file: "src/faqs.md"
+    fields:
+      - { label: "Layout", name: "layout", widget: "hidden", default: "layouts/faqs.html" }
+      - { label: "Permalink", name: "permalink", widget: "hidden", default: "/faqs/" }
+      - { label: "Title", name: "title", widget: "string", default: "Frequently asked questions" }
+      - { label: "Meta description", name: "metaDesc", widget: "text", required: false }
+      - { label: "Lede", name: "lede", widget: "markdown", required: false }
+collections:
+  - name: "faqs"
+    label: "FAQs"
+    folder: "src/faqs"
+    create: true
+    slug: "{{slug}}"
+    preview_path: "faqs"
+    fields:
+      - { label: "Question", name: "question", widget: "string" }
+      - { label: "Answer", name: "answer", widget: "markdown" }
+      - { label: "Category", name: "category", widget: "string" }
+      - { label: "Order", name: "order", widget: "number", value_type: "int", min: 1 }

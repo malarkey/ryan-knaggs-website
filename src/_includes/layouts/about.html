@@ -1,0 +1,69 @@
+{% set pageHeaderTitle = title %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+{% include "partials/head.html" %}
+
+<body id="{{ site.siteID }}">
+
+{% include "partials/header.html" %}
+
+<div class="layout" data-layout="shining">
+
+<div data-theme="reversed">
+
+<p class="alt-uppercase">Ryan Knaggs</p>
+
+<h1 data-size="4xl">{{ title }}</h1>
+
+{% if lede %}{{ lede | markdown | safe }}{% endif %}
+
+<div class="alt-article">
+{{ content | safe }}
+</div><!-- article -->
+
+</div><!-- one -->
+
+<div>
+{% if featureImage %}<figure>
+<img src="{{ featureImage }}" alt="{{ featureImageCaption }}" />
+{% if featureImageCaption %}<figcaption>{{ featureImageCaption }}</figcaption>{% endif %}
+</figure>{% endif %}
+</div><!-- two -->
+
+</div><!-- layout -->
+
+
+
+<hr data-function="spacer">
+
+<div class="layout" data-layout="christine">
+
+<div>
+<h3 data-align-h="center" data-size="l">Proud to have worked on</h3>
+{% include "partials/img-clients.svg" %}
+</div><!-- one -->
+
+</div><!-- layout -->
+
+
+
+{% if aside %}
+<hr data-function="spacer">
+
+<div class="layout" data-layout="frankenstein">
+
+<div>
+{{ aside | markdown | safe }}
+</div><!-- one -->
+
+</div><!-- layout -->
+{% endif %}
+
+
+
+{% include "partials/footer.html" %}
+</body>
+
+</html>

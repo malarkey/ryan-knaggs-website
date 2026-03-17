@@ -1,0 +1,176 @@
+{% extends "layouts/base.html" %}
+
+{% set archivePageSize = paginationSize or 6 %}
+
+{% block content %}
+
+<div class="layout" data-layout="birds">
+
+<div id="portfolio-grid">
+<h1 data-size="4xl">{{ title }}</h1>
+{% if lede %}{{ lede | markdown | safe }}{% endif %}
+</div><!-- one -->
+
+</div><!-- layout -->
+
+
+
+<div class="layout" data-layout="nightmare">
+
+<div>
+
+	<div data-portfolio-browser data-page-size="{{ archivePageSize }}">
+	<div class="layout" data-layout="carrie">
+	{% include "partials/portfolio-list.html" %}
+	</div><!-- layout -->
+
+	<div data-layout="flex">
+
+	<div>
+	{% if collections.portfolioServices.length %}
+	<nav aria-label="Filter portfolio by type">
+	<div data-portfolio-filters>
+	<a href="?filter=all#portfolio-grid" data-filter="all" aria-current="page">All</a>
+	{% for service in collections.portfolioServices %}
+	<a href="?filter={{ service | slug }}#portfolio-grid" data-filter="{{ service | slug }}">{{ service }}</a>
+	{% endfor %}
+	</div><!-- data-portfolio-filters -->
+	</nav>
+	{% endif %}
+	</div><!-- one -->
+
+<nav aria-label="Portfolio pagination" data-align-h="right">
+<button type="button" data-page-action="previous">Previous</button>
+<button type="button" data-page-action="next">Next</button>
+</nav>
+
+</div><!-- layout -->
+
+</div><!-- browser -->
+
+</div><!-- one -->
+
+</div><!-- layout -->
+
+<hr data-function="spacer">
+
+<div class="layout" data-layout="christine">
+
+<div>
+<h3 data-align-h="center" data-size="l">Proud to have worked on</h3>
+{% include "partials/img-clients.svg" %}
+</div><!-- one -->
+
+</div><!-- layout -->
+
+<script>
+(() => {
+const browser = document.querySelector("[data-portfolio-browser]");
+if (!browser) {
+return;
+}
+
+const cards = Array.from(browser.querySelectorAll("[data-portfolio-card]"));
+if (!cards.length) {
+return;
+}
+
+const portfolioGrid = document.getElementById("portfolio-grid");
+const filterButtons = Array.from(document.querySelectorAll("[data-filter]"));
+const previousButton = browser.querySelector("[data-page-action='previous']");
+const nextButton = browser.querySelector("[data-page-action='next']");
+const pageSize = Number(browser.getAttribute("data-page-size")) || 6;
+const currentUrl = new URL(window.location.href);
+const initialFilter = currentUrl.searchParams.get("filter");
+let activeFilter = filterButtons.some((button) => button.getAttribute("data-filter") === initialFilter) ? initialFilter : "all";
+let currentPage = 1;
+
+function updateFilterUrl() {
+const nextUrl = new URL(window.location.href);
+nextUrl.searchParams.set("filter", activeFilter);
+nextUrl.hash = "portfolio-grid";
+window.history.replaceState({}, "", nextUrl);
+}
+
+function scrollToPortfolioGrid() {
+if (!portfolioGrid) {
+return;
+}
+
+portfolioGrid.scrollIntoView({
+behavior: "smooth",
+block: "start"
+});
+}
+
+function getFilteredCards() {
+if (activeFilter === "all") {
+return cards;
+}
+
+return cards.filter((card) => card.getAttribute("data-service") === activeFilter);
+}
+
+function render() {
+const filteredCards = getFilteredCards();
+const totalPages = Math.max(1, Math.ceil(filteredCards.length / pageSize));
+currentPage = Math.min(currentPage, totalPages);
+
+const firstIndex = (currentPage - 1) * pageSize;
+const lastIndex = firstIndex + pageSize;
+
+cards.forEach((card) => {
+card.hidden = true;
+});
+
+filteredCards.slice(firstIndex, lastIndex).forEach((card) => {
+card.hidden = false;
+});
+
+filterButtons.forEach((button) => {
+if (button.getAttribute("data-filter") === activeFilter) {
+button.setAttribute("aria-current", "page");
+} else {
+button.removeAttribute("aria-current");
+}
+});
+
+if (previousButton) {
+previousButton.disabled = currentPage === 1;
+}
+
+if (nextButton) {
+nextButton.disabled = currentPage === totalPages;
+}
+}
+
+filterButtons.forEach((button) => {
+button.addEventListener("click", (event) => {
+event.preventDefault();
+activeFilter = button.getAttribute("data-filter") || "all";
+currentPage = 1;
+updateFilterUrl();
+render();
+scrollToPortfolioGrid();
+});
+});
+
+if (previousButton) {
+previousButton.addEventListener("click", () => {
+currentPage -= 1;
+render();
+});
+}
+
+if (nextButton) {
+nextButton.addEventListener("click", () => {
+currentPage += 1;
+render();
+});
+}
+
+render();
+})();
+</script>
+
+{% endblock %}

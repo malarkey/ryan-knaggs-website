@@ -1,0 +1,55 @@
+{% extends "layouts/base.html" %}
+
+{% set relatedPortfolio = helpers.getSiblingContent(collections.portfolioItems, page, 3, false) %}
+
+{% block content %}
+
+<div class="layout" data-layout="yak-yak">
+<div>
+
+{% if image %}
+<img src="{{ image }}" alt="{{ title }}">
+{% endif %}
+
+<small>{{ year }}{% if service %} • {{ service }}{% endif %}</small>
+<h1>{{ title }}</h1>
+
+{% if summary %}
+<p>{{ summary }}</p>
+{% endif %}
+
+{% if featured %}
+<p><small>Featured project</small></p>
+{% endif %}
+
+{% if client or clientLogo %}
+<p>
+{% if clientLogo %}<img src="{{ clientLogo }}" alt="{{ client or title }}" style="max-width: 10rem;">{% endif %}
+{% if client %}<span>{{ client }}</span>{% endif %}
+</p>
+{% endif %}
+
+{% if audioFile %}
+<audio controls preload="none" src="{{ audioFile }}">
+<p>Your browser does not support the audio element.</p>
+</audio>
+{% endif %}
+
+{{ content | safe }}
+
+{% if testimonial %}
+<blockquote>
+<p>{{ testimonial }}</p>
+</blockquote>
+{% endif %}
+
+</div>
+</div>
+
+{% if relatedPortfolio.length %}
+<hr>
+<h2>Recent portfolio</h2>
+{% include "partials/portfolio-recent-list.html" %}
+{% endif %}
+
+{% endblock %}

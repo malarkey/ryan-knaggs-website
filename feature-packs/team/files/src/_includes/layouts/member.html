@@ -1,0 +1,30 @@
+{% extends "layouts/base.html" %}
+
+{% block content %}
+
+<div class="layout" data-layout="yak-yak">
+
+<div>
+
+{% if image %}
+<img src="/images/{{ image }}" alt="{{ name }}" style="width:200px;">
+{% endif %}
+
+<h1>{{ name }} {% if qualifications %}<span>{{ qualifications }}</span>{% endif %}</h1>
+
+<p>{{ location }}</p>
+
+<p>{{ summary }}</p>
+
+<p data-size="s">
+{% if url %}<a href="{{ url }}">Website</a>{% endif %}
+{% if url and linkedin %} • {% endif %}
+{% if linkedin %}<a href="{{ linkedin }}">LinkedIn</a>{% endif %}
+{% if (url or linkedin) and email %} • {% endif %}
+{% if email %}<a href="mailto:{{ email }}">Email</a>{% endif %}
+</p>
+
+</div><!-- one -->
+</div><!-- layout -->
+
+{% endblock %}

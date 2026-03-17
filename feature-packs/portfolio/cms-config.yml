@@ -1,0 +1,32 @@
+pagesFiles:
+  - label: "Portfolio"
+    name: "portfolio"
+    file: "src/portfolio.md"
+    fields:
+      - { label: "Layout", name: "layout", widget: "hidden", default: "layouts/portfolio.html" }
+      - { label: "Permalink", name: "permalink", widget: "hidden", default: "/portfolio/" }
+      - { label: "Title", name: "title", widget: "string", default: "Portfolio" }
+      - { label: "Meta description", name: "metaDesc", widget: "text", required: false }
+      - { label: "Lede", name: "lede", widget: "markdown", required: false }
+      - { label: "Items per page", name: "paginationSize", widget: "number", value_type: "int", min: 1, default: 6 }
+collections:
+  - name: "portfolio"
+    label: "Portfolio items"
+    folder: "src/portfolio"
+    create: true
+    slug: "{{slug}}"
+    preview_path: "portfolio/{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Summary", name: "summary", widget: "text" }
+      - { label: "Client", name: "client", widget: "string", required: false }
+      - { label: "Client logo", name: "clientLogo", widget: "image", required: false }
+      - { label: "Service", name: "service", widget: "string" }
+      - { label: "Year", name: "year", widget: "number", value_type: "int" }
+      - { label: "Image", name: "image", widget: "image", required: false }
+      - { label: "Thumbnail", name: "thumbnail", widget: "image", required: false }
+      - { label: "Audio file", name: "audioFile", widget: "file", required: false }
+      - { label: "Testimonial", name: "testimonial", widget: "text", required: false }
+      - { label: "Featured", name: "featured", widget: "boolean", required: false, default: false }
+      - { label: "Order", name: "order", widget: "number", value_type: "int", min: 1, required: false }
+      - { label: "Body", name: "body", widget: "markdown", required: false }

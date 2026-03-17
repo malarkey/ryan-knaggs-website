@@ -1,0 +1,45 @@
+{% extends "layouts/base.html" %}
+
+{% set pageHeaderTitle = title %}
+
+{% block content %}
+
+<h1>{{ pageHeaderTitle }}</h1>
+
+<div class="layout" data-layout="boo-boo">
+
+<div>
+{% for member in collections.team %}
+<article class="item-team">
+
+{% if member.data.image %}
+<img src="/images/{{ member.data.image }}" alt="{{ member.data.name }}" style="width:200px;">
+{% endif %}
+
+<h2><a href="{{ member.url }}">{{ member.data.name }}</a> <span>{{ member.data.qualifications }}</span></h2>
+
+{% if member.data.role %}
+<p>{{ member.data.role }}</p>
+{% endif %}
+
+{% if member.data.location %}
+<p>{{ member.data.location }}</p>
+{% endif %}
+
+{% if member.data.summary %}
+<p>{{ member.data.summary }}</p>
+{% endif %}
+
+<small>
+{% if member.data.url %}<a href="{{ member.data.url }}">Website</a>{% endif %}
+{% if member.data.url and member.data.linkedin %} • {% endif %}
+{% if member.data.linkedin %}<a href="{{ member.data.linkedin }}">LinkedIn</a>{% endif %}
+</small>
+
+</article>
+{% endfor %}
+</div><!-- one -->
+
+</div><!-- layout -->
+
+{% endblock %}

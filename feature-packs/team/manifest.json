@@ -1,0 +1,11 @@
+{
+  "featureFlag": "team",
+  "mainNavigationItems": [
+    {
+      "text": "Team",
+      "url": "/team/"
+    }
+  ],
+  "footerNavigationItems": [],
+  "cms": true
+}

@@ -1,0 +1,20 @@
+<div class="layout" data-layout="halloween">
+
+<footer role="contentinfo">
+
+<div id="footer-logo">
+<a href="#{{ site.siteID }}" title="Top">{% include "partials/logo-vertical.svg" %} <span data-visibility="hidden">{{ site.name }}</span></a>
+</div><!-- footer-logo -->
+
+<ul class="alt-inline">
+{% for item in footer_navigation.items %}
+<li><a href="{{ item.url }}"{{ helpers.getLinkActiveState(item.url, page.url) | safe }}>{{ item.text }}</a></li>
+{% endfor %}
+</ul>
+
+{% include "partials/credits.html" %}
+{% include "partials/social.html" %}
+
+</footer>
+
+</div><!-- layout -->

@@ -1,0 +1,12 @@
+{% for item in collections.recentFaqs %}
+{% set faqId = "faq-recent-" + item.fileSlug %}
+<article class="item-faq">
+<small>{{ item.data.category }}</small>
+<details>
+<summary id="{{ faqId }}-question">{{ item.data.question }}</summary>
+<div role="region" aria-labelledby="{{ faqId }}-question">
+{{ item.data.answer | markdown | safe }}
+</div>
+</details>
+</article>
+{% endfor %}

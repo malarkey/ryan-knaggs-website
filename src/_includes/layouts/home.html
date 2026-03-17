@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% include "partials/head.html" %}
+
+<body id="{{ site.siteID }}">
+
+<div class="layout" data-layout="psycho">
+
+<div class="alt-intro">
+
+<div id="banner-logo">
+{% include "partials/logo-vertical.svg" %}
+<span data-visibility="hidden">{{ site.name }}</span>
+</div><!-- banner-logo -->
+
+<nav>
+<ul>
+{% for item in navigation.items %}
+<li><a href="{{ item.url }}" {{ helpers.getLinkActiveState(item.url, page.url) | safe }}>{{ item.text }}</a></li>
+{% endfor %}
+</ul>
+</nav>
+
+<h1 data-size="3xl">{{ title }}</h1>
+
+{% if lede %}{{ lede | markdown | safe }}{% endif %}
+
+<div class="alt-article">
+{{ content | safe }}
+</div><!-- article -->
+
+</div><!-- one -->
+
+
+<div id="panels">
+{% set panelItems = collections.panels or [] %}
+{% if panelItems.length %}
+{% for panel in panelItems %}
+{% set activePanelIndex = loop.index0 %}
+
+<article class="panel" data-panel data-panel-key="{{ panel.fileSlug }}" data-panel-index="{{ loop.index0 }}" {% if not loop.first %}hidden{% endif %}>
+
+<div class="panel-media" style="view-transition-name: panel-image-{{ panel.fileSlug }};">
+<img src="{{ panel.data.image }}" alt="{{ panel.data.imageAlt or panel.data.title }}" loading="{% if loop.first %}eager{% else %}lazy{% endif %}" decoding="async">
+</div><!-- panel-media -->
+
+<div class="panel-copy">
+
+<div class="panel-heading">
+<h2 style="view-transition-name: panel-title-{{ panel.fileSlug }};">{{ panel.data.title }}</h2>
+<p class="panel-summary">{{ panel.data.summary }}</p>
+</div><!-- panel-heading -->
+
+<div class="panel-actions">
+	{% if panel.data.audioFile %}
+	<button type="button" data-panel-audio-toggle data-audio-label-play="Play excerpt" data-audio-label-pause="Pause excerpt" aria-pressed="false">
+
+<svg xmlns="http://www.w3.org/2000/svg" width="32" viewBox="0 0 32 32" data-panel-audio-icon-play><g fill="none" fill-rule="evenodd"><rect width="32" height="32" fill="#295bbe" rx="16" class="icon-themed" /><path fill="#fff" d="m26.66 18.174-14.76 7.38a2 2 0 0 1-2.9-1.78V9.014a2 2 0 0 1 2.9-1.8l14.76 7.38a2 2 0 0 1 0 3.58"/></g></svg>
+
+<svg xmlns="http://www.w3.org/2000/svg" width="32" viewBox="0 0 32 32" data-panel-audio-icon-pause><g fill="none" fill-rule="evenodd"><rect width="32" height="32" fill="#295bbe" rx="16" class="icon-themed" /><path fill="#fff" d="M10 7h3a1 1 0 0 1 1 1v17a1 1 0 0 1-1 1h-3a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1m9 0h3a1 1 0 0 1 1 1v17a1 1 0 0 1-1 1h-3a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1"/></g></svg>
+
+<span data-panel-audio-label data-visibility="hidden">Play excerpt</span></button>
+	<audio preload="none" src="{{ panel.data.audioFile }}"></audio>
+	{% else %}
+	<button class="btn" type="button" disabled aria-disabled="true">Audio preview soon</button>
+	{% endif %}
+	</div><!-- panel-actions -->
+
+<blockquote class="panel-quote">
+<svg xmlns="http://www.w3.org/2000/svg" width="35" viewBox="0 0 38 27" class="icon-detail"><path fill="#c9cacf" d="M0 9.672q0-5.326 2.692-7.5Q5.384 0 10.82 0h6.522v6.362h-6.315q-1.968 0-2.796.595-.828.594-.828 2.25v4.034h9.94V27H0zm20.658 0q0-5.326 2.692-7.5Q26.04 0 31.477 0H38v6.362h-6.316q-1.967 0-2.795.595-.828.594-.829 2.25v4.034H38V27H20.658z"/></svg>
+<p>{{ panel.data.blockquote }}</p>
+</blockquote>
+
+<div class="panel-nav">
+<div class="panel-nav__grid" aria-label="Select another panel" role="group">
+{% for item in panelItems %}
+	<button type="button" data-panel-target="{{ loop.index0 }}" title="{{ item.data.title }}" aria-label="Open cue {{ loop.index }}: {{ item.data.title }}" aria-pressed="{% if loop.index0 == activePanelIndex %}true{% else %}false{% endif %}">
+	<span>{{ loop.index }}</span>
+	</button>
+	{% endfor %}
+	</div><!-- panel-nav__grid -->
+		</div><!-- panel-nav -->
+
+	</div><!-- panel-copy -->
+	<button type="button" title="Expand" data-panel-expand><svg xmlns="http://www.w3.org/2000/svg" width="32" viewBox="0 0 32 32"><g fill="none" fill-rule="evenodd">
+<rect width="32" height="32" fill="#295bbe" rx="16" class="icon-themed" /><path fill="#fff" d="M23.23 11.172a.19.19 0 0 1 .276 0l1.14 1.14c.15.148.352.23.562.23A.79.79 0 0 0 26 11.75V7.792A.79.79 0 0 0 25.208 7H21.25a.79.79 0 0 0-.728.49.79.79 0 0 0 .166.864l1.14 1.14a.19.19 0 0 1 0 .277l-5.186 5.185a.2.2 0 0 1-.284 0l-5.186-5.185a.19.19 0 0 1 0-.277l1.14-1.14a.79.79 0 0 0 .166-.863A.79.79 0 0 0 11.75 7H7.792A.79.79 0 0 0 7 7.792v3.958c.002.32.195.607.49.728q.145.06.302.064a.8.8 0 0 0 .562-.23l1.14-1.14a.19.19 0 0 1 .277 0l5.193 5.186a.214.214 0 0 1 0 .284l-5.193 5.186a.19.19 0 0 1-.277 0l-1.14-1.14a.79.79 0 0 0-.863-.166.79.79 0 0 0-.491.728v3.958c0 .438.354.792.792.792h3.958a.79.79 0 0 0 .728-.49.79.79 0 0 0-.166-.864l-1.14-1.14a.19.19 0 0 1 0-.277l5.186-5.193a.214.214 0 0 1 .284 0l5.186 5.193a.19.19 0 0 1 0 .277l-1.14 1.14a.79.79 0 0 0-.166.863c.121.296.408.49.728.491h3.958a.79.79 0 0 0 .792-.792V21.25a.79.79 0 0 0-.49-.728.79.79 0 0 0-.864.166l-1.14 1.14a.19.19 0 0 1-.277 0l-5.193-5.186a.214.214 0 0 1 0-.284z"/></g></svg><span data-visibility="hidden">Expand</span></button>
+	</article>
+	{% endfor %}
+	{% endif %}
+
+	</div><!-- panels two -->
+
+</div><!-- layout -->
+
+<dialog class="panel-viewer" data-panel-viewer>
+<div class="panel-viewer__surface">
+<div class="panel-viewer__bar">
+<button type="button" data-panel-close><svg xmlns="http://www.w3.org/2000/svg" width="32" viewBox="0 0 32 32"><g fill="none" fill-rule="evenodd"><rect width="32" height="32" fill="#295bbe" rx="16" class="icon-themed" /><path fill="#fff" d="M24.625 11.007c.5-.501.5-1.313 0-1.814L22.81 7.379a1.276 1.276 0 0 0-1.815 0l-5.34 5.34a.23.23 0 0 1-.31 0l-5.34-5.34a1.276 1.276 0 0 0-1.815 0L6.375 9.193c-.5.501-.5 1.313 0 1.814l5.342 5.339a.214.214 0 0 1 0 .308l-5.342 5.34c-.5.5-.5 1.312 0 1.813l1.815 1.814a1.276 1.276 0 0 0 1.815 0l5.34-5.34a.23.23 0 0 1 .31 0l5.34 5.34c.24.243.567.379.908.377.34.004.67-.132.907-.377l1.815-1.814c.5-.501.5-1.313 0-1.814l-5.342-5.339a.214.214 0 0 1 0-.308z"/></g></svg><span data-visibility="hidden">Close</span></button>
+</div>
+<div data-panel-dialog-content></div>
+</div>
+</dialog>
+
+
+
+<hr data-function="spacer">
+{% if blockquote %}
+<hr data-function="spacer">
+
+<div class="layout" data-layout="halloween">
+
+<div>
+<blockquote>
+<svg xmlns="http://www.w3.org/2000/svg" width="35" viewBox="0 0 38 27" class="icon-detail"><path fill="#c9cacf" d="M0 9.672q0-5.326 2.692-7.5Q5.384 0 10.82 0h6.522v6.362h-6.315q-1.968 0-2.796.595-.828.594-.828 2.25v4.034h9.94V27H0zm20.658 0q0-5.326 2.692-7.5Q26.04 0 31.477 0H38v6.362h-6.316q-1.967 0-2.795.595-.828.594-.829 2.25v4.034H38V27H20.658z"/></svg>
+<p>{{ blockquote }}</p>
+</blockquote>
+</div><!-- one -->
+
+</div><!-- layout -->
+{% endif %}
+
+
+
+<hr data-function="spacer">
+
+<div class="alt-bordered">
+<h2>Projects</h2>
+<p><a href="/portfolio">Hear more</a></p>
+</div><!-- bordered -->
+
+<div class="layout" data-layout="carrie">
+{% set portfolioItems = collections.recentPortfolio %}
+{% include "partials/portfolio-list.html" %}
+</div><!-- layout -->
+
+
+
+<hr data-function="spacer">
+
+<div class="layout" data-layout="scream">
+
+<div>
+<h2>Listen to the composer reel</h2>
+<p>Selected music demonstrating dark cinematic hybrid orchestral scoring for film, television, and video games.</p>
+<p>Powered by <a href="https://www.reelcrafter.com">Reelcrafter</a></p>
+</div><!-- one -->
+
+<div>
+[REELCRAFTER]
+</div><!-- two -->
+
+</div><!-- layout -->
+
+
+
+<hr data-function="spacer">
+
+<div class="layout" data-layout="christine">
+
+<div>
+<h3 data-align-h="center" data-size="l">Proud to have worked on</h3>
+{% include "partials/img-clients.svg" %}
+</div><!-- one -->
+
+</div><!-- layout -->
+
+
+
+{% include "partials/footer.html" %}
+<script type="module" src="/js/home-panels.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,16 @@
+{
+  "featureFlag": "portfolio",
+  "mainNavigationItems": [
+    {
+      "text": "Portfolio",
+      "url": "/portfolio/"
+    }
+  ],
+  "footerNavigationItems": [
+    {
+      "text": "Portfolio",
+      "url": "/portfolio/"
+    }
+  ],
+  "cms": true
+}

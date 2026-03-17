@@ -1,0 +1,14 @@
+{% set items = portfolioItems or collections.portfolioItems %}
+{% for item in items %}
+<article class="item-portfolio" data-portfolio-card data-service="{{ item.data.service | slug }}">
+
+{% if item.data.thumbnail %}<a href="{{ item.url }}"><img src="{{ item.data.thumbnail }}" alt="{{ item.data.title }}"></a>{% endif %}
+<small class="alt-meta">{{ item.data.year }}{% if item.data.service %} {{ item.data.service }}{% endif %}</small>
+
+<h3><a href="{{ item.url }}">{{ item.data.title }}</a></h3>
+
+{% if item.data.client %}<p>{{ item.data.client }}</p>{% endif %}
+{% if item.data.summary %}<p>{{ item.data.summary }}</p>{% endif %}
+
+</article>
+{% endfor %}

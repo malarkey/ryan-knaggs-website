@@ -1,0 +1,5 @@
+.item-team {
+border-block-end: var(--border-width-l) solid var(--color-border);
+margin-block-end: var(--spacing-l);
+padding-block-end: var(--spacing-r);
+}

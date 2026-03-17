@@ -1,0 +1,466 @@
+backend:
+  name: git-gateway
+  branch: main
+publish_mode: editorial_workflow
+media_folder: src/images
+public_folder: /images
+collections:
+  - name: pages
+    label: Pages
+    files:
+      - label: Homepage
+        name: home
+        file: src/index.md
+        fields:
+          - label: Layout
+            name: layout
+            widget: hidden
+            default: layouts/home.html
+          - label: Title
+            name: title
+            widget: string
+          - label: Meta description
+            name: metaDesc
+            widget: text
+            required: false
+          - label: Feature image
+            name: featureImage
+            widget: image
+            required: false
+          - label: Feature image caption
+            name: featureImageCaption
+            widget: string
+            required: false
+          - label: Intro
+            name: lede
+            widget: markdown
+            required: false
+          - label: Sidebar
+            name: aside
+            widget: markdown
+            required: false
+          - label: Body
+            name: body
+            widget: markdown
+            required: false
+      - label: About
+        name: about
+        file: src/about.md
+        fields:
+          - label: Layout
+            name: layout
+            widget: hidden
+            default: layouts/about.html
+          - label: Permalink
+            name: permalink
+            widget: hidden
+            default: /about/
+          - label: Title
+            name: title
+            widget: string
+          - label: Meta description
+            name: metaDesc
+            widget: text
+            required: false
+          - label: Feature image
+            name: featureImage
+            widget: image
+            required: false
+          - label: Feature image caption
+            name: featureImageCaption
+            widget: string
+            required: false
+          - label: Intro
+            name: lede
+            widget: markdown
+            required: false
+          - label: Sidebar
+            name: aside
+            widget: markdown
+            required: false
+          - label: Body
+            name: body
+            widget: markdown
+            required: false
+      - label: Contact
+        name: contact
+        file: src/contact.md
+        fields:
+          - label: Layout
+            name: layout
+            widget: hidden
+            default: layouts/contact.html
+          - label: Permalink
+            name: permalink
+            widget: hidden
+            default: /contact/
+          - label: Title
+            name: title
+            widget: string
+          - label: Meta description
+            name: metaDesc
+            widget: text
+            required: false
+          - label: Feature image
+            name: featureImage
+            widget: image
+            required: false
+          - label: Feature image caption
+            name: featureImageCaption
+            widget: string
+            required: false
+          - label: Intro
+            name: lede
+            widget: markdown
+            required: false
+          - label: Sidebar
+            name: aside
+            widget: markdown
+            required: false
+          - label: Body
+            name: body
+            widget: markdown
+            required: false
+      - label: Privacy policy
+        name: privacy
+        file: src/privacy.md
+        fields:
+          - label: Layout
+            name: layout
+            widget: hidden
+            default: layouts/page.html
+          - label: Permalink
+            name: permalink
+            widget: hidden
+            default: /privacy/
+          - label: Title
+            name: title
+            widget: string
+          - label: Body
+            name: body
+            widget: markdown
+      - label: Terms
+        name: terms
+        file: src/terms.md
+        fields:
+          - label: Layout
+            name: layout
+            widget: hidden
+            default: layouts/page.html
+          - label: Permalink
+            name: permalink
+            widget: hidden
+            default: /terms/
+          - label: Title
+            name: title
+            widget: string
+          - label: Body
+            name: body
+            widget: markdown
+      - label: Blog index
+        name: blog
+        file: src/blog.md
+        fields:
+          - label: Layout
+            name: layout
+            widget: hidden
+            default: layouts/feed.html
+          - label: Title
+            name: title
+            widget: string
+          - label: Meta description
+            name: metaDesc
+            widget: text
+            required: false
+          - label: Intro
+            name: lede
+            widget: markdown
+            required: false
+      - label: FAQs
+        name: faqs
+        file: src/faqs.md
+        fields:
+          - label: Layout
+            name: layout
+            widget: hidden
+            default: layouts/faqs.html
+          - label: Permalink
+            name: permalink
+            widget: hidden
+            default: /faqs/
+          - label: Title
+            name: title
+            widget: string
+            default: Frequently asked questions
+          - label: Meta description
+            name: metaDesc
+            widget: text
+            required: false
+          - label: Lede
+            name: lede
+            widget: markdown
+            required: false
+      - label: Portfolio
+        name: portfolio
+        file: src/portfolio.md
+        fields:
+          - label: Layout
+            name: layout
+            widget: hidden
+            default: layouts/portfolio.html
+          - label: Permalink
+            name: permalink
+            widget: hidden
+            default: /portfolio/
+          - label: Title
+            name: title
+            widget: string
+            default: Portfolio
+          - label: Meta description
+            name: metaDesc
+            widget: text
+            required: false
+          - label: Lede
+            name: lede
+            widget: markdown
+            required: false
+          - label: Items per page
+            name: paginationSize
+            widget: number
+            value_type: int
+            min: 1
+            default: 6
+  - name: globals
+    label: Globals
+    files:
+      - label: Site data
+        name: site_data
+        file: src/_data/site.json
+        fields:
+          - label: Site name
+            name: name
+            widget: string
+          - label: Site URL
+            name: url
+            widget: string
+          - label: Author name
+            name: authorName
+            widget: string
+          - label: Author email
+            name: authorEmail
+            widget: string
+          - label: Telephone
+            name: telephone
+            widget: string
+            required: false
+          - label: Public email
+            name: email
+            widget: string
+            required: false
+          - label: Site ID
+            name: siteID
+            widget: string
+          - label: Copyright owner
+            name: copyrightOwner
+            widget: string
+            required: false
+      - label: Main navigation
+        name: navigation
+        file: src/_data/navigation.json
+        fields:
+          - label: Items
+            name: items
+            widget: list
+            fields:
+              - label: Text
+                name: text
+                widget: string
+              - label: URL
+                name: url
+                widget: string
+      - label: Footer navigation
+        name: footer_navigation
+        file: src/_data/footer_navigation.json
+        fields:
+          - label: Items
+            name: items
+            widget: list
+            fields:
+              - label: Text
+                name: text
+                widget: string
+              - label: URL
+                name: url
+                widget: string
+  - name: posts
+    label: Posts
+    folder: src/posts
+    create: true
+    slug: '{{slug}}'
+    preview_path: blog/{{slug}}
+    fields:
+      - label: Title
+        name: title
+        widget: string
+      - label: Publish date
+        name: date
+        widget: datetime
+      - label: Author
+        name: postAuthor
+        widget: string
+      - label: Summary
+        name: postSummary
+        widget: text
+      - label: Categories
+        name: postCategories
+        widget: list
+        allow_add: true
+      - label: Tags
+        name: postTags
+        widget: list
+        allow_add: true
+      - label: Figure image
+        name: postFigureImage
+        widget: image
+        required: false
+        media_folder: src/images
+        public_folder: /images
+      - label: Figure alt text
+        name: postFigureAlt
+        widget: string
+        required: false
+      - label: Figure caption
+        name: postFigureCaption
+        widget: string
+        required: false
+      - label: Body
+        name: body
+        widget: markdown
+  - name: faqs
+    label: FAQs
+    folder: src/faqs
+    create: true
+    slug: '{{slug}}'
+    preview_path: faqs
+    fields:
+      - label: Question
+        name: question
+        widget: string
+      - label: Answer
+        name: answer
+        widget: markdown
+      - label: Category
+        name: category
+        widget: string
+      - label: Order
+        name: order
+        widget: number
+        value_type: int
+        min: 1
+  - name: portfolio
+    label: Portfolio items
+    folder: src/portfolio
+    create: true
+    slug: '{{slug}}'
+    preview_path: portfolio/{{slug}}
+    fields:
+      - label: Title
+        name: title
+        widget: string
+      - label: Summary
+        name: summary
+        widget: text
+      - label: Client
+        name: client
+        widget: string
+        required: false
+      - label: Client logo
+        name: clientLogo
+        widget: image
+        required: false
+      - label: Service
+        name: service
+        widget: string
+      - label: Year
+        name: year
+        widget: number
+        value_type: int
+      - label: Image
+        name: image
+        widget: image
+        required: false
+      - label: Thumbnail
+        name: thumbnail
+        widget: image
+        required: false
+      - label: Vimeo embed
+        name: videoEmbed
+        widget: code
+        default_language: html
+        output_code_only: true
+        allow_language_selection: false
+        hint: Paste the full Vimeo iframe embed code only. The CMS will store it safely and it replaces the image on the portfolio item page.
+        required: false
+      - label: Audio file
+        name: audioFile
+        widget: file
+        media_folder: src/audio
+        public_folder: /audio
+        required: false
+      - label: Testimonial
+        name: testimonial
+        widget: text
+        required: false
+      - label: Featured
+        name: featured
+        widget: boolean
+        required: false
+        default: false
+      - label: Order
+        name: order
+        widget: number
+        value_type: int
+        min: 1
+        required: false
+      - label: Body
+        name: body
+        widget: markdown
+        required: false
+  - name: panels
+    label: Panels
+    label_singular: Panel
+    folder: src/panels
+    create: true
+    extension: md
+    format: frontmatter
+    identifier_field: title
+    summary: '{{fields.order}}. {{fields.title}}'
+    slug: '{{slug}}'
+    fields:
+      - label: Title
+        name: title
+        widget: string
+      - label: Summary
+        name: summary
+        widget: text
+      - label: Image
+        name: image
+        widget: image
+      - label: Image alt text
+        name: imageAlt
+        widget: string
+        required: false
+      - label: Audio file
+        name: audioFile
+        widget: file
+        media_folder: src/audio
+        public_folder: /audio
+        required: false
+      - label: Blockquote
+        name: blockquote
+        widget: text
+      - label: Order
+        name: order
+        widget: number
+        value_type: int
+        min: 1

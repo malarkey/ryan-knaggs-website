@@ -1,0 +1,30 @@
+---
+title: "Portfolio feed"
+summary: "Recent portfolio entries from this Eleventy boilerplate."
+permalink: "/portfolio/feed.xml"
+---
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>{{ site.name }} {{ title }}</title>
+  <subtitle>{{ summary }}</subtitle>
+  <link href="{{ site.url }}{{ permalink }}" rel="self"/>
+  <link href="{{ site.url }}/portfolio/"/>
+  <updated>{{ collections.portfolioItems | rssLastUpdatedDate }}</updated>
+  <id>{{ site.url }}/portfolio/</id>
+  <author>
+    <name>{{ site.authorName }}</name>
+    <email>{{ site.authorEmail }}</email>
+  </author>
+  {% for item in collections.portfolioItems %}
+    {% set absoluteItemUrl %}{{ site.url }}{{ item.url | url }}{% endset %}
+    <entry>
+      <title>{{ item.data.title }}</title>
+      <link href="{{ absoluteItemUrl }}"/>
+      <updated>{{ (item.data.date or item.date) | rssDate }}</updated>
+      <id>{{ absoluteItemUrl }}</id>
+      <content type="html"><![CDATA[
+        {{ item.templateContent | safe }}
+      ]]></content>
+    </entry>
+  {% endfor %}
+</feed>

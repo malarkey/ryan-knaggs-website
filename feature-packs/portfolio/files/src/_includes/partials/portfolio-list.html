@@ -1,0 +1,18 @@
+{% for item in collections.portfolioItems %}
+<article class="item-portfolio" data-portfolio-card data-service="{{ item.data.service | slug }}">
+{% if item.data.thumbnail %}
+<img src="{{ item.data.thumbnail }}" alt="{{ item.data.title }}">
+{% endif %}
+<small>{{ item.data.year }}{% if item.data.service %} • {{ item.data.service }}{% endif %}</small>
+<h2><a href="{{ item.url }}">{{ item.data.title }}</a></h2>
+{% if item.data.featured %}
+<p><small>Featured project</small></p>
+{% endif %}
+{% if item.data.client %}
+<p><b>{{ item.data.client }}</b></p>
+{% endif %}
+{% if item.data.summary %}
+<p>{{ item.data.summary }}</p>
+{% endif %}
+</article>
+{% endfor %}
