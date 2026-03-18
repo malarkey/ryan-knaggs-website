@@ -6,7 +6,7 @@
 * Generated via: https://www.fluid-type-scale.com/
 */
 
---font-family-default: "fira-sans-condensed-regular", sans-serif;
+--font-family-default: "fira-sans-condensed-light", sans-serif;
 --font-family-alt: "delirium", sans-serif;
 
 /* Fluid font scale - scales between min/max viewports */
@@ -501,6 +501,9 @@ display: block;
 font-size: var(--font-size-s);
 margin-block-end: 0;
 text-transform: uppercase; }
+
+b, strong {
+font-family: fira-sans-condensed-regular; }
 
 /* ==========================================================================
 HORIZONTAL RULES

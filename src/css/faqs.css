@@ -4,6 +4,7 @@ padding-block-end: var(--spacing-r); }
 
 .item-faq summary {
 cursor: pointer;
+font-family: fira-sans-condensed-regular;
 font-size: var(--font-size-r);
 font-weight: var(--font-weight-m);
 margin-block-end: var(--spacing-s); }
