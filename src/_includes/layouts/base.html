@@ -3,7 +3,7 @@
 
 {% include "partials/head.html" %}
 
-<body id="{{ site.siteID }}">
+<body id="{{ site.siteID }}"{% if bodyClass %} class="{{ bodyClass }}"{% endif %}>
 
 {% include "partials/header.html" %}
 

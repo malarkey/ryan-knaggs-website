@@ -5,7 +5,7 @@
   "main": ".eleventy.js",
   "scripts": {
     "start": "npx @11ty/eleventy --serve",
-    "build": "ELEVENTY_ENV=production npx @11ty/eleventy",
+    "build": "ELEVENTY_ENV=production npx @11ty/eleventy && node scripts/minify-dist-assets.js",
     "add:blog": "node scripts/add-feature.js blog",
     "add:faqs": "node scripts/add-feature.js faqs",
     "add:portfolio": "node scripts/add-feature.js portfolio",

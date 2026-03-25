@@ -1,6 +1,7 @@
 {% extends "layouts/base.html" %}
 
 {% set relatedPortfolio = helpers.getSiblingContent(collections.portfolioItems, page, 3, false) %}
+{% set bodyClass = "body-portfolio-item" %}
 
 {% block content %}
 
@@ -9,13 +10,29 @@
 <div>
 <p data-align-h="right"><a href="/portfolio" class="alt-uppercase">Back to all projects</a></p>
 
-<figure>
+<figure class="portfolio-media">
 {% if videoEmbed %}
 {{ videoEmbed | safe }}
 {% elif image %}
-<img src="{{ image }}" alt="{{ title }}">
+<img src="{{ image }}" alt="{{ title }}"{% if audioFile and not videoEmbed %} data-portfolio-audio-toggle-image{% endif %}>
 {% if audioFile and not videoEmbed %}
-<audio controls preload="none" src="{{ audioFile }}">
+
+<div class="portfolio-player" data-portfolio-player>
+<button type="button" class="portfolio-player__toggle" data-portfolio-player-toggle aria-label="Play audio" aria-pressed="false">
+
+<span data-portfolio-player-icon-play aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="32" viewBox="0 0 32 32"><g fill="none" fill-rule="evenodd"><rect width="32" height="32" fill="#295bbe" rx="16" class="icon-themed" /><path fill="#fff" d="m26.66 18.174-14.76 7.38a2 2 0 0 1-2.9-1.78V9.014a2 2 0 0 1 2.9-1.8l14.76 7.38a2 2 0 0 1 0 3.58"/></g></svg></span>
+
+<span data-portfolio-player-icon-pause aria-hidden="true" hidden><svg xmlns="http://www.w3.org/2000/svg" width="32" viewBox="0 0 32 32"><g fill="none" fill-rule="evenodd"><rect width="32" height="32" fill="#295bbe" rx="16" class="icon-themed" /><path fill="#fff" d="M10 7h3a1 1 0 0 1 1 1v17a1 1 0 0 1-1 1h-3a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1m9 0h3a1 1 0 0 1 1 1v17a1 1 0 0 1-1 1h-3a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1"/></g></svg></span>
+</button>
+
+<input type="range" class="portfolio-player__scrubber" min="0" max="1" step="0.01" value="0" data-portfolio-player-scrubber aria-label="Seek audio">
+
+<div class="portfolio-player__times" aria-hidden="true">
+<span data-portfolio-player-current>00:00</span>
+<span data-portfolio-player-duration>00:00</span>
+</div>
+</div>
+<audio preload="none" src="{{ audioFile }}" data-portfolio-page-audio>
 <small>Your browser does not support the audio element.</small>
 </audio>
 {% endif %}
@@ -43,6 +60,109 @@
 <blockquote>
 <p>{{ testimonial }}</p>
 </blockquote>
+{% endif %}
+
+{% if audioFile and not videoEmbed %}
+<script>
+(() => {
+const audio = document.querySelector("[data-portfolio-page-audio]");
+const image = document.querySelector("[data-portfolio-audio-toggle-image]");
+const toggle = document.querySelector("[data-portfolio-player-toggle]");
+const scrubber = document.querySelector("[data-portfolio-player-scrubber]");
+const currentTime = document.querySelector("[data-portfolio-player-current]");
+const durationTime = document.querySelector("[data-portfolio-player-duration]");
+const playIcon = document.querySelector("[data-portfolio-player-icon-play]");
+const pauseIcon = document.querySelector("[data-portfolio-player-icon-pause]");
+if (!audio) {
+return;
+}
+
+const formatTime = (value) => {
+const safeValue = Number.isFinite(value) ? Math.max(0, value) : 0;
+const minutes = Math.floor(safeValue / 60);
+const seconds = Math.floor(safeValue % 60);
+
+return `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+};
+
+const togglePlayback = () => {
+if (audio.paused || audio.ended) {
+audio.play();
+return;
+}
+
+audio.pause();
+};
+
+const syncAudioState = () => {
+const isPlaying = !audio.paused && !audio.ended;
+document.body.classList.toggle("is-audio-playing", isPlaying);
+
+if (toggle) {
+toggle.setAttribute("aria-label", isPlaying ? "Pause audio" : "Play audio");
+toggle.setAttribute("aria-pressed", String(isPlaying));
+}
+
+if (playIcon) {
+playIcon.hidden = isPlaying;
+}
+
+if (pauseIcon) {
+pauseIcon.hidden = !isPlaying;
+}
+};
+
+const syncDuration = () => {
+if (!scrubber) {
+return;
+}
+
+const duration = Number.isFinite(audio.duration) && audio.duration > 0 ? audio.duration : 1;
+scrubber.max = String(duration);
+
+if (durationTime) {
+durationTime.textContent = formatTime(audio.duration);
+}
+};
+
+const syncProgress = () => {
+if (scrubber) {
+scrubber.value = String(audio.currentTime);
+}
+
+if (currentTime) {
+currentTime.textContent = formatTime(audio.currentTime);
+}
+};
+
+if (image) {
+image.addEventListener("click", togglePlayback);
+}
+
+if (toggle) {
+toggle.addEventListener("click", togglePlayback);
+}
+
+if (scrubber) {
+scrubber.addEventListener("input", () => {
+audio.currentTime = Number(scrubber.value);
+syncProgress();
+});
+}
+
+audio.addEventListener("play", syncAudioState);
+audio.addEventListener("pause", syncAudioState);
+audio.addEventListener("ended", syncAudioState);
+audio.addEventListener("emptied", syncAudioState);
+audio.addEventListener("loadedmetadata", syncDuration);
+audio.addEventListener("durationchange", syncDuration);
+audio.addEventListener("timeupdate", syncProgress);
+
+syncDuration();
+syncProgress();
+syncAudioState();
+})();
+</script>
 {% endif %}
 
 </div><!-- one -->
