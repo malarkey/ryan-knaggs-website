@@ -4,19 +4,20 @@ summary: "Recent portfolio work by Ryan Knaggs."
 permalink: "/portfolio/feed.xml"
 ---
 <?xml version="1.0" encoding="utf-8"?>
+{% set siteBaseUrl = site.absoluteUrl or site.url or "" %}
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>{{ site.name }} {{ title }}</title>
   <subtitle>{{ summary }}</subtitle>
-  <link href="{{ site.url }}{{ permalink }}" rel="self"/>
-  <link href="{{ site.url }}/portfolio/"/>
+  <link href="{{ siteBaseUrl }}{{ permalink }}" rel="self"/>
+  <link href="{{ siteBaseUrl }}/portfolio/"/>
   <updated>{{ collections.portfolioItems | rssLastUpdatedDate }}</updated>
-  <id>{{ site.url }}/portfolio/</id>
+  <id>{{ siteBaseUrl }}/portfolio/</id>
   <author>
     <name>{{ site.authorName }}</name>
     <email>{{ site.authorEmail }}</email>
   </author>
   {% for item in collections.portfolioItems %}
-    {% set absoluteItemUrl %}{{ site.url }}{{ item.url | url }}{% endset %}
+    {% set absoluteItemUrl %}{{ siteBaseUrl }}{{ item.url | url }}{% endset %}
     <entry>
       <title>{{ item.data.title }}</title>
       <link href="{{ absoluteItemUrl }}"/>

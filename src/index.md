@@ -4,7 +4,7 @@ metaDesc: "Ryan Knaggs. Composer specialising in dark, dramatic music for film, 
 layout: layouts/home.html
 
 blockquote: |
- Over 15 years, I’ve created music and sound for video games, films, television, and interactive media.
+ Whenever I bring Ryan Knaggs onto a project, the results are consistently outstanding. He is a highly talented composer who always elevates the final product. — Scott Liggett
 
 lede: |
   <p class="alt-lede">I’m <a href="/about">Ryan Knaggs</a>, a composer and sound designer specializing in dark cinematic hybrid orchestral music for film, television, and video games.</p>

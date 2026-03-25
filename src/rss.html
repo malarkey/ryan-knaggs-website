@@ -4,19 +4,20 @@ summary: 'The latest posts from this Eleventy boilerplate.'
 permalink: '/feed.xml'
 ---
 <?xml version="1.0" encoding="utf-8"?>
+{% set siteBaseUrl = site.absoluteUrl or site.url or "" %}
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>{{ site.name }} {{ title }}</title>
 	<subtitle>{{ summary }}</subtitle>
-	<link href="{{ site.url }}{{ permalink }}" rel="self"/>
-	<link href="{{ site.url }}/"/>
+	<link href="{{ siteBaseUrl }}{{ permalink }}" rel="self"/>
+	<link href="{{ siteBaseUrl }}/"/>
 	<updated>{{ collections.blog | rssLastUpdatedDate }}</updated>
-	<id>{{ site.url }}</id>
+	<id>{{ siteBaseUrl or "/" }}</id>
 	<author>
     <name>{{ site.authorName }}</name>
     <email>{{ site.authorEmail }}</email>
 	</author>
 	{% for post in collections.blog %}
-    {% set absolutePostUrl %}{{ site.url }}{{ post.url | url }}{% endset %}
+    {% set absolutePostUrl %}{{ siteBaseUrl }}{{ post.url | url }}{% endset %}
     <entry>
       <title>{{ post.data.title }}</title>
       <link href="{{ absolutePostUrl }}"/>

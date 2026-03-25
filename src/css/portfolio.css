@@ -9,7 +9,10 @@ scale: 1;
 transition: all var(--animate-duration-faster) var(--animate-function); }
 
 .item-portfolio:hover img {
-border-color: var(--color-accent);
+border-color: var(--color-brand);
+box-shadow:
+0 0 3rem color-mix(in srgb, var(--color-brand) 56%, transparent),
+0 0 6rem color-mix(in srgb, var(--color-accent) 32%, transparent);
 scale: var(--scale-up); }
 
 [data-portfolio-filters] {

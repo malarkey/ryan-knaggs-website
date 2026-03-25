@@ -246,6 +246,12 @@ text-size-adjust: none; }
 body {
 -webkit-font-smoothing: auto;
 background-color: var(--color-background-default);
+background-image: radial-gradient(ellipse 140% 110% at 80% 100%,
+color-mix(in srgb, var(--color-brand) 35%, transparent) 0%,
+transparent 78%);
+background-position: center bottom;
+background-repeat: no-repeat;
+background-size: 100% min(52rem, 65vh);
 color: var(--color-text-default);
 font-family: var(--font-family-default);
 font-feature-settings: liga 1;
@@ -1351,7 +1357,7 @@ padding-inline: var(--spacing-m); }
 [data-size="xs"] { font-size: var(--font-size-xs); }
 
 [data-size="3xl"] {
-font-size: 6cqi; /* Container query units for responsive sizing */
+font-size: 5cqi; /* Container query units for responsive sizing */
 line-height: 1;
 margin-block: 0 var(--spacing-r); }
 
@@ -1359,6 +1365,7 @@ margin-block: 0 var(--spacing-r); }
 font-size: 8cqi; /* Container query units for responsive sizing */
 line-height: .9;
 margin-block: 0 var(--spacing-r); }
+
 /* ==========================================================================
 INTERACTIVE PANELS
 ========================================================================== */

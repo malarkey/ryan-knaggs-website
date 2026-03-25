@@ -7,7 +7,8 @@
 {% endif %}
 
 {% set siteTitle = site.name %}
-{% set currentUrl = site.url + page.url %}
+{% set siteBaseUrl = site.absoluteUrl or site.url or "" %}
+{% set currentUrl = siteBaseUrl + page.url %}
 
 {# If the page’s frontmatter has specific metaTitle and/or metaDesc items, switch
 them into the mix #}
