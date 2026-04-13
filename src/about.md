@@ -1,5 +1,5 @@
 ---
-featureImage: /images/tmp-about.webp
+featureImage: /images/img-about.webp
 featureImageCaption: Ryan Knaggs, composer specialising in dark, dramatic music for film, television, and video games.
 layout: layouts/about.html
 metaDesc: "Ryan Knaggs. Composer specialising in dark, dramatic music for film, television, and video games"

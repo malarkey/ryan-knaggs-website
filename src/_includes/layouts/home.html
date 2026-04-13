@@ -42,7 +42,7 @@
 <article class="panel" data-panel data-panel-key="{{ panel.fileSlug }}" data-panel-index="{{ loop.index0 }}" {% if not loop.first %}hidden{% endif %}>
 
 <div class="panel-media" style="view-transition-name: panel-image-{{ panel.fileSlug }};">
-<img src="{{ panel.data.image }}" alt="{{ panel.data.imageAlt or panel.data.title }}" loading="{% if loop.first %}eager{% else %}lazy{% endif %}" decoding="async">
+<img class="alt-masked" src="{{ panel.data.image }}" alt="{{ panel.data.imageAlt or panel.data.title }}" loading="{% if loop.first %}eager{% else %}lazy{% endif %}" decoding="async">
 </div><!-- panel-media -->
 
 <div class="panel-copy">

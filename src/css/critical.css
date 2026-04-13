@@ -568,6 +568,16 @@ video {
 border-radius: var(--border-radius-r);
 margin-bottom: var(--spacing-r); }
 
+.alt-masked {
+-webkit-mask-image: radial-gradient(circle, #000 28%, transparent 68%);
+-webkit-mask-repeat: no-repeat;
+-webkit-mask-position: center;
+-webkit-mask-size: 100% 100%;
+mask-image: radial-gradient(circle, #000 28%, transparent 68%);
+mask-repeat: no-repeat;
+mask-position: center;
+mask-size: 100% 100%; }
+
 .icon-social {
 scale: 1;
 transition: all var(--animate-duration-faster) var(--animate-function); }
