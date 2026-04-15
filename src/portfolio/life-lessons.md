@@ -8,7 +8,7 @@ year: 2025
 image: "/images/portfolio-life-lessons.webp"
 thumbnail: "/images/portfolio-life-lessons.webp"
 videoEmbed:
-audioFile: "/audio/tmp-audio-1.mp3"
+audioFile: "/audio/life-lessons-101.mp3"
 testimonial:
 featured: false
 order: 6
