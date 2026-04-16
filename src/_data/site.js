@@ -23,7 +23,7 @@ module.exports = function() {
     authorName: "Andy Clarke",
     authorEmail: "andy.clarke@stuffandnonsense.co.uk",
     telephone: "+1 480 978 5304",
-    email: "ryan@rkmproductions.com",
+    email: "ryan@ryanknaggsmusic.com",
     siteID: "ryan-knaggs-music",
     copyrightOwner: "Ryan Knaggs Music"
   };
