@@ -5,8 +5,8 @@ postAuthor: "Ryan Knaggs"
 postSummary: "Before becoming a composer, Ryan Knaggs spent nearly thirty years working as a software engineer. In this post he reflects on how programming and composition share deeper connections than many people realise."
 postCategories: ["Composition", "Technology"]
 postTags: ["Programming", "Music", "Creative Process"]
-postFigureImage:
-postFigureAlt:
+postFigureImage: "/images/post-3.webp"
+postFigureAlt: "The Surprising Connection Between Programming and Music"
 postFigureCaption:
 ---
 

@@ -5,7 +5,7 @@ postAuthor: "Ryan Knaggs"
 postSummary: "Dark and atmospheric music can shape how audiences experience a story. In this post, composer Ryan Knaggs explains why tension, space, and subtle harmony are so effective in cinematic storytelling."
 postCategories: ["Film", "Games"]
 postTags: ["Dark Music", "Atmosphere", "Storytelling"]
-postFigureImage: "/images/tmp-post.webp"
+postFigureImage: "/images/post-1.webp"
 postFigureAlt: "Why Dark Music Works So Well in Film and Games"
 postFigureCaption: "Why Dark Music Works So Well in Film and Games"
 ---

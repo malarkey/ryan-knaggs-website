@@ -5,8 +5,8 @@ postAuthor: "Ryan Knaggs"
 postSummary: "Writing music for interactive media requires a different approach than traditional film scoring. Ryan Knaggs explores how game music adapts to player actions and shapes the emotional experience of gameplay."
 postCategories: ["Games", "Composition"]
 postTags: ["Interactive Music", "Adaptive Scoring", "Storytelling"]
-postFigureImage:
-postFigureAlt:
+postFigureImage: "/images/post-2.webp"
+postFigureAlt: "What Composing for Video Games Taught Me About Storytelling"
 postFigureCaption:
 ---
 
