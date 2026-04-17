@@ -4,6 +4,31 @@
 
 <meta name="theme-color" content="#f8f9fa">
 <meta name="robots" content="index, follow, noodp" />
+<script>
+(() => {
+const identityHashKeys = [
+"confirmation_token",
+"email_change_token",
+"invite_token",
+"recovery_token"
+];
+
+if (!window.location.hash) {
+return;
+}
+
+if (window.location.pathname.startsWith("/admin")) {
+return;
+}
+
+const hasIdentityToken = identityHashKeys.some((key) => window.location.hash.includes(key));
+if (!hasIdentityToken) {
+return;
+}
+
+window.location.replace(`/admin/${window.location.search}${window.location.hash}`);
+})();
+</script>
 
 {% set siteBaseUrl = site.absoluteUrl or site.url or "" %}
 
