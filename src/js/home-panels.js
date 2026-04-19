@@ -1,5 +1,49 @@
 const panelRoot = document.querySelector("#panels");
 
+const setAudioButtonState = (button, isPlaying) => {
+  if (!button) {
+    return;
+  }
+
+  const label = button.querySelector("[data-panel-audio-label]");
+  const playIcon = button.querySelector("[data-reel-audio-icon-play]");
+  const pauseIcon = button.querySelector("[data-reel-audio-icon-pause]");
+  const nextLabel = isPlaying
+    ? button.getAttribute("data-audio-label-pause") || "Pause audio"
+    : button.getAttribute("data-audio-label-play") || "Play audio";
+
+  button.setAttribute("aria-label", nextLabel);
+  button.setAttribute("aria-pressed", String(isPlaying));
+
+  if (label) {
+    label.textContent = nextLabel;
+  }
+
+  if (playIcon) {
+    playIcon.hidden = isPlaying;
+  }
+
+  if (pauseIcon) {
+    pauseIcon.hidden = !isPlaying;
+  }
+};
+
+const getAudioButton = (audio) => {
+  return audio.closest("[data-panel]")?.querySelector("[data-panel-audio-toggle]")
+    || audio.closest("[data-reel-player]")?.querySelector("[data-reel-audio-toggle]");
+};
+
+const resetAllAudio = () => {
+  document.querySelectorAll("#panels audio, [data-panel-viewer] audio, [data-reel-player] audio").forEach((audio) => {
+    audio.pause();
+    audio.currentTime = 0;
+  });
+
+  document.querySelectorAll("#panels [data-panel-audio-toggle], [data-panel-viewer] [data-panel-audio-toggle], [data-reel-audio-toggle]").forEach((button) => {
+    setAudioButtonState(button, false);
+  });
+};
+
 if (panelRoot) {
   const panels = Array.from(panelRoot.querySelectorAll("[data-panel]"));
   const viewer = document.querySelector("[data-panel-viewer]");
@@ -11,37 +55,6 @@ if (panelRoot) {
     let activeIndex = Math.max(0, panels.findIndex((panel) => !panel.hidden));
     let isTransitioning = false;
 
-    const setAudioButtonState = (button, isPlaying) => {
-      if (!button) {
-        return;
-      }
-
-      const label = button.querySelector("[data-panel-audio-label]");
-      const nextLabel = isPlaying
-        ? button.getAttribute("data-audio-label-pause") || "Pause excerpt"
-        : button.getAttribute("data-audio-label-play") || "Play excerpt";
-
-      button.setAttribute("aria-pressed", String(isPlaying));
-
-      if (label) {
-        label.textContent = nextLabel;
-        return;
-      }
-
-      button.textContent = nextLabel;
-    };
-
-    const resetAllAudio = () => {
-      document.querySelectorAll("#panels audio, [data-panel-viewer] audio").forEach((audio) => {
-        audio.pause();
-        audio.currentTime = 0;
-      });
-
-      document.querySelectorAll("#panels [data-panel-audio-toggle], [data-panel-viewer] [data-panel-audio-toggle]").forEach((button) => {
-        setAudioButtonState(button, false);
-      });
-    };
-
     const bindAudioScope = (scope) => {
       scope.querySelectorAll("audio").forEach((audio) => {
         if (audio.dataset.panelAudioBound === "true") {
@@ -51,17 +64,17 @@ if (panelRoot) {
         audio.dataset.panelAudioBound = "true";
 
         audio.addEventListener("play", () => {
-          const button = audio.closest("[data-panel]")?.querySelector("[data-panel-audio-toggle]");
+          const button = getAudioButton(audio);
           setAudioButtonState(button, true);
         });
 
         audio.addEventListener("ended", () => {
-          const button = audio.closest("[data-panel]")?.querySelector("[data-panel-audio-toggle]");
+          const button = getAudioButton(audio);
           setAudioButtonState(button, false);
         });
 
         audio.addEventListener("pause", () => {
-          const button = audio.closest("[data-panel]")?.querySelector("[data-panel-audio-toggle]");
+          const button = getAudioButton(audio);
 
           if (audio.currentTime < audio.duration || Number.isNaN(audio.duration)) {
             setAudioButtonState(button, false);
@@ -267,3 +280,40 @@ if (panelRoot) {
     renderStage(activeIndex);
   }
 }
+
+document.querySelectorAll("[data-reel-player]").forEach((player) => {
+  const audio = player.querySelector("audio");
+  const button = player.querySelector("[data-reel-audio-toggle]");
+
+  if (!audio || !button) {
+    return;
+  }
+
+  audio.addEventListener("ended", () => {
+    setAudioButtonState(button, false);
+  });
+
+  audio.addEventListener("pause", () => {
+    if (audio.currentTime < audio.duration || Number.isNaN(audio.duration)) {
+      setAudioButtonState(button, false);
+    }
+  });
+
+  audio.addEventListener("play", () => {
+    setAudioButtonState(button, true);
+  });
+
+  button.addEventListener("click", () => {
+    if (audio.paused) {
+      resetAllAudio();
+      setAudioButtonState(button, true);
+      audio.play().catch(() => {
+        setAudioButtonState(button, false);
+      });
+      return;
+    }
+
+    audio.pause();
+    setAudioButtonState(button, false);
+  });
+});
