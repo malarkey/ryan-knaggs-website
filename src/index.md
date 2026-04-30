@@ -7,7 +7,7 @@ blockquote: >
   Whenever I bring Ryan Knaggs onto a project, the results are consistently
   outstanding. He is a highly talented composer who always elevates the final
   product. — Scott Liggett
-featureImage: /images/homepage-profile-v2.jpg
+featureImage: ""
 lede: >
   <p class="alt-lede">I’m <a href="/about">Ryan Knaggs</a>, a composer and sound
   designer specializing in dark cinematic hybrid orchestral music for film,
